@@ -14,6 +14,8 @@ const SearchForm = ({
   onChangeSource,
   onChangeToDate,
   onSubmit,
+  onPressToggleForm,
+  isSearchFormOpen,
   query,
   toDate,
   source,
@@ -22,31 +24,41 @@ const SearchForm = ({
 
   return (
     <Card containerStyle={styles.container}>
-      <FormLabel>Topic</FormLabel>
-      <FormInput
-        containerStyle={{}}
-        onChangeText={onChangeQuery}
-        placeholder='Memes'
-        value={query}
-      />
-      <FormValidationMessage>{!query && 'This field is required'}</FormValidationMessage>
-      <Sources
-        onChangeSource={onChangeSource}
-        source={source.value}
-        sources={sources}
-      />
-      <DatePickers
-        fromDate={fromDate}
-        onChangeFromDate={onChangeFromDate}
-        toDate={toDate}
-        onChangeToDate={onChangeToDate}
-      />
+      <View style={{ display: isSearchFormOpen ? 'flex' : 'none' }}>
+        <FormLabel>Topic</FormLabel>
+        <FormInput
+          containerStyle={{}}
+          onChangeText={onChangeQuery}
+          placeholder='Memes'
+          value={query}
+        />
+        <FormValidationMessage>{!query && 'This field is required'}</FormValidationMessage>
+        <Sources
+          onChangeSource={onChangeSource}
+          source={source.value}
+          sources={sources}
+        />
+        <DatePickers
+          fromDate={fromDate}
+          onChangeFromDate={onChangeFromDate}
+          toDate={toDate}
+          onChangeToDate={onChangeToDate}
+        />
+        <Button
+          backgroundColor='#03A9F4'
+          buttonStyle={{ borderRadius: 2, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
+          disabled={!query}
+          onPress={onSubmit}
+
+          title='Submit'
+        />
+      </View>
       <Button
+        containerViewStyle={{ marginBottom: 5, marginTop: 10 }}
+        large
         backgroundColor='#03A9F4'
-        buttonStyle={{ borderRadius: 2, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
-        disabled={!query}
-        onPress={onSubmit}
-        title='Submit'
+        title={isSearchFormOpen ? 'CLOSE SEARCH FORM' : 'OPEN SEARCH FORM'}
+        onPress={() => onPressToggleForm(!isSearchFormOpen)}
       />
     </Card>
   );
@@ -56,6 +68,7 @@ const styles = StyleSheet.create({
   container: {
     height: 'auto',
     margin: 0,
+    padding: 0,
     width: '100%'
   },
 });

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { StatusBar, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { Header } from 'react-native-elements';
+import { Button, Header } from 'react-native-elements';
 import {
   fetchArticles,
   fetchSources
@@ -16,7 +16,8 @@ class Dashboard extends Component {
     query: '',
     fromDate: null,
     toDate: new Date(),
-    source: {}
+    source: {},
+    isSearchFormOpen: false
   }
 
   componentDidMount() {
@@ -46,12 +47,15 @@ class Dashboard extends Component {
     this.fetchArticles(query, fromDate, toDate, source, page);
   }
 
+  handleOnPressToggleForm = (isSearchFormOpen) => this.setState({ isSearchFormOpen });
+
   render() {
     const {
       fromDate,
       query,
       source,
       toDate,
+      isSearchFormOpen
     } = this.state;
     const {
       articles,
@@ -73,6 +77,8 @@ class Dashboard extends Component {
           onChangeSource={this.handleChangeSource}
           onChangeToDate={this.handleChangeToDate}
           onSubmit={() => this.fetchArticles(query, fromDate, toDate, source, page)}
+          onPressToggleForm={this.handleOnPressToggleForm}
+          isSearchFormOpen={isSearchFormOpen}
           query={query}
           source={source}
           sources={sources}
