@@ -1,21 +1,36 @@
+'use strict';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from "redux-thunk";
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import storage from 'redux-persist/es/storage';
+import reducers from './reducers';
+import Dashboard from './screens/Dashboard';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Open up App.js to start working on your app!</Text>
-      </View>
-    );
-  }
-}
+const persistConfig = {
+  key: 'root',
+  storage
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const store = createStore(
+  persistedReducer,
+  applyMiddleware(thunk)
+);
+
+const persistor = persistStore(store);
+
+persistor.purge();
+
+const App = () => (
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <Dashboard />
+    </PersistGate>
+  </Provider>
+);
+
+export default App;
