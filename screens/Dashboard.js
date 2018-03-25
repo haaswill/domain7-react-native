@@ -16,7 +16,7 @@ class Dashboard extends Component {
     query: '',
     fromDate: null,
     toDate: new Date(),
-    source: {},
+    source: '',
     isSearchFormOpen: true
   }
 

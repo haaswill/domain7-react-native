@@ -69,7 +69,7 @@ class SearchForm extends Component {
           <FormValidationMessage>{!query && 'This field is required'}</FormValidationMessage>
           <Sources
             onChangeSource={onChangeSource}
-            source={source.value}
+            source={source}
             sources={sources}
           />
           <DatePickers
@@ -83,7 +83,7 @@ class SearchForm extends Component {
             buttonStyle={{ borderRadius: 2, marginLeft: 0, marginRight: 0, marginBottom: 10 }}
             disabled={!query}
             onPress={onSubmit}
-            title='Submit'
+            title='SUBMIT'
           />
         </View>
         <Button
@@ -120,7 +120,7 @@ SearchForm.propTypes = {
   toDate: PropTypes.instanceOf(Date),
   onChangeToDate: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  source: PropTypes.object,
+  source: PropTypes.string,
   onChangeSource: PropTypes.func.isRequired
 };
 

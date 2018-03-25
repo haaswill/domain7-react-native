@@ -8,10 +8,12 @@ const Sources = ({ onChangeSource, source, sources }) => {
   return (
     <View>
       <Dropdown
-        data={sources}
+        animationDuration={0}
         containerStyle={{ marginHorizontal: 20 }}
+        data={sources}
         label='Select a source'
         labelExtractor={({ label }) => label}
+        onChangeText={onChangeSource}
         value={source}
       />
     </View>
@@ -20,7 +22,7 @@ const Sources = ({ onChangeSource, source, sources }) => {
 
 Sources.propTypes = {
   onChangeSource: PropTypes.func.isRequired,
-  source: PropTypes.any,
+  source: PropTypes.string,
   sources: PropTypes.array.isRequired
 };
 
