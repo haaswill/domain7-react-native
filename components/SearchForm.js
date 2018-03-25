@@ -79,7 +79,7 @@ class SearchForm extends Component {
             onChangeToDate={onChangeToDate}
           />
           <Button
-            backgroundColor='#476DC5'
+            backgroundColor='#fc4b61'
             buttonStyle={{ borderRadius: 2, marginLeft: 0, marginRight: 0, marginBottom: 10 }}
             disabled={!query}
             onPress={onSubmit}
@@ -87,7 +87,7 @@ class SearchForm extends Component {
           />
         </View>
         <Button
-          backgroundColor={isSearchFormOpen ? '#E3000E' : '#476DC5'}
+          backgroundColor='#fc4b61'
           containerViewStyle={{ marginBottom: 0, marginTop: 0, marginLeft: 0, marginRight: 0 }}
           large
           onPress={() => onPressToggleForm(!isSearchFormOpen)}

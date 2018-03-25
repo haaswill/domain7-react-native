@@ -71,9 +71,10 @@ class Dashboard extends Component {
     return (
       <View style={styles.container}>
         <Header
-          centerComponent={{ text: 'NEWS FEED', style: { color: '#fff', fontSize: 16 } }}
+          centerComponent={{ text: 'NEWS FEED', style: { color: '#fff', fontSize: 17, fontWeight: '900' } }}
           outerContainerStyles={{ width: '100%', borderBottomWidth: 0 }}
           statusBarProps={{ barStyle: 'light-content' }}
+          backgroundColor='#fc4b61'
         />
         <SearchForm
           fromDate={fromDate}
