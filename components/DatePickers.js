@@ -18,6 +18,7 @@ const DatePickers = ({
         confirmBtnText='Ok'
         date={fromDate}
         format='MM/DD/YYYY'
+        maxDate={new Date()}
         onDateChange={onChangeFromDate}
         placeholder='From'
         showIcon={false}

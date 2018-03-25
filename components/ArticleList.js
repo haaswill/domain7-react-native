@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button, List } from 'react-native-elements';
 import { Article } from './Article';
@@ -18,6 +18,23 @@ const ArticleList = ({ articles, loading }) => {
     />
   );
 
+  const renderNoArticles = () => (
+    <View style={styles.text}>
+      <Text>No articles...</Text>
+    </View>
+  );
+
+  const renderList = () => {
+    if (articles.length === 0) return renderNoArticles();
+    return (
+      <FlatList
+        data={articles}
+        renderItem={generateList}
+        keyExtractor={article => article.url}
+      />
+    );
+  }
+
   const renderSpinner = () => (
     <View style={styles.spinner}>
       <ActivityIndicator />
@@ -28,11 +45,9 @@ const ArticleList = ({ articles, loading }) => {
     <List
       containerStyle={styles.container}
     >
-      <FlatList
-        data={articles}
-        renderItem={generateList}
-        keyExtractor={article => article.url}
-      />
+      {
+        loading ? renderSpinner() : renderList()
+      }
     </List>
   )
 };
@@ -50,6 +65,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center'
   },
+  text: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center'
+  }
 });
 
 ArticleList.propTypes = {

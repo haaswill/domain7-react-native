@@ -6,7 +6,6 @@ import { Button, Card } from 'react-native-elements';
 
 const Article = ({ title, image, description, author, datetime, url }) => {
   const handleOnPress = () => Linking.openURL(url);
-  console.log(image)
   return (
     <Card
       featuredSubtitle={`By ${author} - Published on ${datetime}`}

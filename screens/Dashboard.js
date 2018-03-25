@@ -17,7 +17,7 @@ class Dashboard extends Component {
     fromDate: null,
     toDate: new Date(),
     source: {},
-    isSearchFormOpen: false
+    isSearchFormOpen: true
   }
 
   componentDidMount() {
@@ -49,6 +49,11 @@ class Dashboard extends Component {
 
   handleOnPressToggleForm = (isSearchFormOpen) => this.setState({ isSearchFormOpen });
 
+  handleSubmit = (query, fromDate, toDate, source, page) => {
+    this.fetchArticles(query, fromDate, toDate, source, page);
+    this.setState({ isSearchFormOpen: false });
+  }
+
   render() {
     const {
       fromDate,
@@ -67,7 +72,7 @@ class Dashboard extends Component {
       <View style={styles.container}>
         <Header
           centerComponent={{ text: 'NEWS FEED', style: { color: '#fff', fontSize: 16 } }}
-          outerContainerStyles={{ width: '100%' }}
+          outerContainerStyles={{ width: '100%', borderBottomWidth: 0 }}
           statusBarProps={{ barStyle: 'light-content' }}
         />
         <SearchForm
@@ -76,7 +81,7 @@ class Dashboard extends Component {
           onChangeQuery={this.handleChangeQuery}
           onChangeSource={this.handleChangeSource}
           onChangeToDate={this.handleChangeToDate}
-          onSubmit={() => this.fetchArticles(query, fromDate, toDate, source, page)}
+          onSubmit={() => this.handleSubmit(query, fromDate, toDate, source, page)}
           onPressToggleForm={this.handleOnPressToggleForm}
           isSearchFormOpen={isSearchFormOpen}
           query={query}
