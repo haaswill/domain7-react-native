@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Keyboard, StatusBar, StyleSheet, Text, View } from 'react-native';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Button, Header } from 'react-native-elements';
@@ -52,6 +52,7 @@ class Dashboard extends Component {
   handleSubmit = (query, fromDate, toDate, source, page) => {
     this.fetchArticles(query, fromDate, toDate, source, page);
     this.setState({ isSearchFormOpen: false });
+    Keyboard.dismiss();
   }
 
   render() {
@@ -64,7 +65,7 @@ class Dashboard extends Component {
     } = this.state;
     const {
       articles,
-      loading,
+      refreshing,
       sources,
       page
     } = this.props;
@@ -92,7 +93,7 @@ class Dashboard extends Component {
         />
         <ArticleList
           articles={articles}
-          loading={loading}
+          refreshing={refreshing}
           onClickPage={this.handleOnClickPage}
           page={page}
         />
@@ -114,11 +115,11 @@ Dashboard.propTypes = {
   articles: PropTypes.array.isRequired,
   fetchArticles: PropTypes.func.isRequired,
   fetchSources: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired
+  refreshing: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ articlesReducer: { articles, loading, page }, sourcesReducer: { sources } }) => {
-  return { articles, loading, page, sources };
+const mapStateToProps = ({ articlesReducer: { articles, refreshing, page }, sourcesReducer: { sources } }) => {
+  return { articles, refreshing, page, sources };
 };
 
 export default connect(mapStateToProps, {

@@ -7,7 +7,7 @@ import {
 const initialState = {
   articles: [],
   error: {},
-  loading: false,
+  refreshing: false,
   page: 1
 };
 
@@ -16,21 +16,21 @@ export default (state = initialState, action) => {
     case FETCH_ARTICLES_START:
       return {
         ...state,
-        loading: true
+        refreshing: true
       };
     case FETCH_ARTICLES_SUCCESS:
       return {
         ...state,
         articles: action.payload.articles,
         page: action.payload.page,
-        loading: false
+        refreshing: false
       };
     case FETCH_ARTICLES_FAIL:
       return {
         ...state,
         ...initialState,
         error: action.payload,
-        loading: false
+        refreshing: false
       };
     default:
       return state;

@@ -4,9 +4,10 @@ import { ActivityIndicator, FlatList, StyleSheet, Text, View } from 'react-nativ
 import PropTypes from 'prop-types';
 import { Button, List } from 'react-native-elements';
 import { Article } from './Article';
+import { Footer } from './Footer';
 import { formatDateToReadable } from '../handlers/formatter';
 
-const ArticleList = ({ articles, loading }) => {
+const ArticleList = ({ articles, refreshing }) => {
   const generateList = ({ item: { author, publishedAt, description, urlToImage, url, title } }) => (
     <Article
       author={author}
@@ -17,6 +18,12 @@ const ArticleList = ({ articles, loading }) => {
       url={url}
     />
   );
+
+  const renderFooter = () => {
+    return (
+      <Footer />
+    );
+  }
 
   const renderNoArticles = () => (
     <View style={styles.text}>
@@ -42,12 +49,8 @@ const ArticleList = ({ articles, loading }) => {
   );
 
   return (
-    <List
-      containerStyle={styles.container}
-    >
-      {
-        loading ? renderSpinner() : renderList()
-      }
+    <List containerStyle={styles.container}>
+      {refreshing ? renderSpinner() : renderList()}
     </List>
   )
 };
@@ -74,7 +77,7 @@ const styles = StyleSheet.create({
 
 ArticleList.propTypes = {
   articles: PropTypes.array.isRequired,
-  loading: PropTypes.bool.isRequired
+  refreshing: PropTypes.bool.isRequired
 };
 
 export { ArticleList };

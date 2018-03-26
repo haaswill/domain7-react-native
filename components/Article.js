@@ -16,7 +16,7 @@ const Article = ({ title, image, description, author, datetime, url }) => {
         {description}
       </Text>
       <Button
-        backgroundColor='#03A9F4'
+        backgroundColor='#fc4b61'
         buttonStyle={{ borderRadius: 2, marginLeft: 0, marginRight: 0, marginBottom: 0, marginTop: 5 }}
         icon={{ name: 'open-in-browser' }}
         onPress={handleOnPress}
