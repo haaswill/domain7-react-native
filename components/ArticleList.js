@@ -7,7 +7,7 @@ import { Article } from './Article';
 import { Footer } from './Footer';
 import { formatDateToReadable } from '../handlers/formatter';
 
-const ArticleList = ({ articles, refreshing }) => {
+const ArticleList = ({ articles, loading, loadMore, refreshing }) => {
   const generateList = ({ item: { author, publishedAt, description, urlToImage, url, title } }) => (
     <Article
       author={author}
@@ -21,7 +21,7 @@ const ArticleList = ({ articles, refreshing }) => {
 
   const renderFooter = () => {
     return (
-      <Footer />
+      <Footer loading={loading} />
     );
   }
 
@@ -36,15 +36,17 @@ const ArticleList = ({ articles, refreshing }) => {
     return (
       <FlatList
         data={articles}
-        renderItem={generateList}
         keyExtractor={article => article.url}
+        ListFooterComponent={renderFooter}
+        onEndReached={loadMore}
+        renderItem={generateList}
       />
     );
   }
 
   const renderSpinner = () => (
     <View style={styles.spinner}>
-      <ActivityIndicator />
+      <ActivityIndicator animating size='large' />
     </View>
   );
 
@@ -77,6 +79,8 @@ const styles = StyleSheet.create({
 
 ArticleList.propTypes = {
   articles: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+  loadMore: PropTypes.func.isRequired,
   refreshing: PropTypes.bool.isRequired
 };
 

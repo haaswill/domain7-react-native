@@ -6,18 +6,19 @@ import PropTypes from 'prop-types';
 import { Button, Header } from 'react-native-elements';
 import {
   fetchArticles,
-  fetchSources
+  fetchSources,
+  loadMoreArticles
 } from '../actions';
 import { ArticleList } from '../components/ArticleList';
 import { SearchForm } from '../components/SearchForm';
 
 class Dashboard extends Component {
   state = {
-    query: '',
     fromDate: null,
-    toDate: new Date(),
+    isSearchFormOpen: true,
+    query: '',
     source: '',
-    isSearchFormOpen: true
+    toDate: new Date()
   }
 
   componentDidMount() {
@@ -25,6 +26,8 @@ class Dashboard extends Component {
   }
 
   fetchArticles = (query, fromDate, toDate, source, page) => this.props.fetchArticles(query, fromDate, toDate, source, page);
+
+  loadMoreArticles = (query, fromDate, toDate, source, page) => this.props.loadMoreArticles(query, fromDate, toDate, source, page);
 
   fetchSources = () => this.props.fetchSources();
 
@@ -42,9 +45,10 @@ class Dashboard extends Component {
 
   handleChangeToDate = (e, toDate) => this.setState({ toDate });
 
-  handleOnClickPage = (page) => {
+  handleLoadMore = () => {
     const { query, fromDate, toDate, source } = this.state;
-    this.fetchArticles(query, fromDate, toDate, source, page);
+    const newPage = this.props.page + 1;
+    this.loadMoreArticles(query, fromDate, toDate, source, newPage);
   }
 
   handleOnPressToggleForm = (isSearchFormOpen) => this.setState({ isSearchFormOpen });
@@ -58,13 +62,14 @@ class Dashboard extends Component {
   render() {
     const {
       fromDate,
+      isSearchFormOpen,
       query,
       source,
       toDate,
-      isSearchFormOpen
     } = this.state;
     const {
       articles,
+      loading,
       refreshing,
       sources,
       page
@@ -93,9 +98,9 @@ class Dashboard extends Component {
         />
         <ArticleList
           articles={articles}
+          loading={loading}
+          loadMore={this.handleLoadMore}
           refreshing={refreshing}
-          onClickPage={this.handleOnClickPage}
-          page={page}
         />
       </View>
     );
@@ -118,11 +123,12 @@ Dashboard.propTypes = {
   refreshing: PropTypes.bool.isRequired
 };
 
-const mapStateToProps = ({ articlesReducer: { articles, refreshing, page }, sourcesReducer: { sources } }) => {
-  return { articles, refreshing, page, sources };
+const mapStateToProps = ({ articlesReducer: { articles, loading, refreshing, page }, sourcesReducer: { sources } }) => {
+  return { articles, loading, refreshing, page, sources };
 };
 
 export default connect(mapStateToProps, {
   fetchArticles,
-  fetchSources
+  fetchSources,
+  loadMoreArticles
 })(Dashboard);
