@@ -17,7 +17,6 @@ const handleRequest = async (query, fromDate, toDate, source, page) => {
   url = source ? url.concat(`&sources=${source}`) : url;
   url = url.concat(`&page=${page}`);
   url = url.concat('&sortBy=popularity&');
-  console.log(url)
   const { data: { articles } } = await get(url);
   return articles;
 };
