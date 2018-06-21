@@ -40,6 +40,7 @@ const ArticleList = ({ articles, loading, loadMore, refreshing }) => {
         ListFooterComponent={renderFooter}
         onEndReached={loadMore}
         renderItem={generateList}
+        keyboardDismissMode="on-drag"
       />
     );
   }

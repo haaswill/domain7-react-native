@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { LayoutAnimation, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button, Card, FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker';
 import { Sources } from './Sources';
 import { DatePickers } from './DatePickers';
 

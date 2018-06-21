@@ -1,6 +1,6 @@
 'use strict';
 import React, { Component } from 'react';
-import { Keyboard, StatusBar, StyleSheet, Text, View } from 'react-native';
+import { Keyboard, StatusBar, StyleSheet, Text, View, TouchableWithoutFeedback } from 'react-native';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
 import { Button, Header } from 'react-native-elements';
@@ -32,6 +32,7 @@ class Dashboard extends Component {
   fetchSources = () => this.props.fetchSources();
 
   handleChangeFromDate = (e, fromDate) => {
+    Keyboard.dismiss();
     let toDate = this.state.toDate;
     if (toDate < fromDate) {
       toDate = null;
@@ -41,7 +42,10 @@ class Dashboard extends Component {
 
   handleChangeQuery = query => this.setState({ query });
 
-  handleChangeSource = source => this.setState({ source });
+  handleChangeSource = source => {
+    Keyboard.dismiss();
+    this.setState({ source });
+  }
 
   handleChangeToDate = (e, toDate) => this.setState({ toDate });
 
