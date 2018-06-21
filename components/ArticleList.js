@@ -13,7 +13,7 @@ const ArticleList = ({ articles, loading, loadMore, refreshing }) => {
       author={author}
       datetime={formatDateToReadable(publishedAt)}
       description={description}
-      image={urlToImage}
+      image={urlToImage || '#'}
       title={title}
       url={url}
     />

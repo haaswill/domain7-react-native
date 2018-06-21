@@ -1,6 +1,9 @@
 {
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
+  "scripts": {
+    "postinstall": "rndebugger-open --expo"
+  },
   "dependencies": {
     "axios": "^0.18.0",
     "expo": "^25.0.0",
@@ -14,5 +17,8 @@
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "react-native-debugger-open": "^0.3.17"
   }
 }

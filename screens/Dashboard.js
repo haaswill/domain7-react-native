@@ -54,9 +54,9 @@ class Dashboard extends Component {
   handleOnPressToggleForm = (isSearchFormOpen) => this.setState({ isSearchFormOpen });
 
   handleSubmit = (query, fromDate, toDate, source, page) => {
-    this.fetchArticles(query, fromDate, toDate, source, page);
-    this.setState({ isSearchFormOpen: false });
     Keyboard.dismiss();
+    this.setState({ isSearchFormOpen: false });
+    this.fetchArticles(query, fromDate, toDate, source, page);
   }
 
   render() {
