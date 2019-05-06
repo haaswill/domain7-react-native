@@ -2,7 +2,9 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "postinstall": "rndebugger-open --expo"
+    "postinstall": "rndebugger-open --expo",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -16,9 +18,11 @@
     "react-native-material-dropdown": "^0.11.1",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "snyk": "^1.161.1"
   },
   "devDependencies": {
     "react-native-debugger-open": "^0.3.17"
-  }
+  },
+  "snyk": true
 }
